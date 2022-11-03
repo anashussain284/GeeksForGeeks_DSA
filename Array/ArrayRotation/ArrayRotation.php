@@ -7,7 +7,7 @@ class ArrayRotation
     $d = $d;
   }
   /****** Approach1 - Using temp array ******/
-  public function tempArray($array, $d) {
+  public function tempArray(array $array, int $d): array {
     /** Temparary array from dth value to end of the array */
     for ($i = $d; $i < count($array); $i++) {
       $temp[] = $array[$i];
@@ -24,8 +24,8 @@ class ArrayRotation
     return $array = $temp;
   }
 
-  /****** Approach1 - Rotate one by one ******/
-  public function rotateOneByOne($array, $d) {
+  /****** Approach2 - Rotate one by one ******/
+  public function rotateOneByOne(array $array, int $d): array {
     /** Shift all element from start to end upto dth element */
     for ($i = 0, $j = count($array) + 1; $i < $d; $i++, $j++) {
       $array[$j] = $array[$i];
@@ -33,11 +33,29 @@ class ArrayRotation
     }
     return $array;
   }
+
+  /****** Approach3 - A Juggling Algorithm ******/
+  public function juggglingAlgorithm(array $array, int $d) {
+    $gcd = $this->gcd($d, count($array));
+  }
+
+  /** GCD */
+  public function gcd($a, $b) {
+    while (($a % $b) > 0) {
+      $r = $a % $b;
+      $a = $b;
+      $b = $r;
+    }
+    return $b;
+  }
 }
 
 $arrayRotation = new ArrayRotation($array = [1, 2, 3, 4, 5, 6, 7], $d = 2);
 $approach_1 = $arrayRotation->tempArray($array, $d);
-var_dump($approach_1);
+// var_dump($approach_1);
 
 $approach_2 = $arrayRotation->rotateOneByOne($array, $d);
-var_dump($approach_2);
+// var_dump($approach_2);
+
+$approach_3 = $arrayRotation->juggglingAlgorithm($array, $d);
+var_dump($approach_3);
